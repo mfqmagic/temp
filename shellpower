@@ -1,0 +1,9 @@
+Get-Process TGitCache | ForEach-Object {
+  $owner = (Get-WmiObject Win32_Process -Filter "ProcessId=$($_.Id)").GetOwner().User
+  [PSCustomObject]@{
+    PID = $_.Id
+    Path = $_.Path
+    User = $owner
+    StartTime = $_.StartTime
+  }
+}
